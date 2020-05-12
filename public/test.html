@@ -1,0 +1,121 @@
+<head>
+ <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <link href="css/index.css" rel="stylesheet">
+     <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.9.1/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/7.9.1/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.9.1/firebase.js"></script>
+<script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
+
+<link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+<style>
+    #body {
+            background: linear-gradient(0deg, rgba(50,200,183,1) 34%, rgba(0,255,110,1) 79%);
+            
+        }
+      #login {
+            background: rgb(238, 238, 238);
+            max-width: 360px;
+            margin: 200px auto 16px;
+            padding: 32px;
+            
+            border-radius: 3px;
+        }
+</style>
+
+</head>
+
+
+
+<!-- <div class="container-fluid">
+    <div class="row" style="padding-top:50vh" id="loading">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8 text-center">
+             <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+         </div>
+    </div>
+   </div> -->
+<body id="body" style="visibility: hidden">
+<nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="/">SpotifyGroups</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/test">Log In</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+  <div class="container-fluid">
+    <div id="login">
+      <div id="firebaseui-auth-container" ></div>
+    </div>
+   </div>
+  
+ 
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyBy8n1-BjOCaHHGjg6ZZgaQ_gp0EAFK_Tc",
+    authDomain: "spotifygroups-627c7.firebaseapp.com",
+    databaseURL: "https://spotifygroups-627c7.firebaseio.com",
+    projectId: "spotifygroups-627c7",
+    storageBucket: "spotifygroups-627c7.appspot.com",
+    messagingSenderId: "557372370976",
+    appId: "1:557372370976:web:16812293a1b236844d0c45",
+    measurementId: "G-X8GFHZPDQW"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+</script>
+
+<script>
+// Initialize the FirebaseUI Widget using Firebase.
+var ui = new firebaseui.auth.AuthUI(firebase.auth());
+ui.start('#firebaseui-auth-container', {
+ signInSuccessUrl: '/home',
+  signInOptions: [
+    firebase.auth.EmailAuthProvider.PROVIDER_ID,
+    firebase.auth.GoogleAuthProvider.PROVIDER_ID
+  ],
+  credentialHelper: 'none'
+ 
+  // Other config options...
+});
+
+</script>
+<script>
+     
+     firebase.auth().onAuthStateChanged(function(user) {
+            if(user){
+              window.location.replace("/home");
+
+            }   
+            else{
+              // document.getElementById('loading').outerHTML = "";
+                document.getElementById('body').style.visibility = "visible";
+            }
+        })
+
+
+    </script>
+</body>

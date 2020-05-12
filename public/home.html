@@ -1,0 +1,195 @@
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <link href="css/index.css" rel="stylesheet">
+    <link href="css/table.css" rel="stylesheet">
+   
+     <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+  <script src="https://www.gstatic.com/firebasejs/7.9.1/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/7.9.1/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.9.1/firebase.js"></script>
+<script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
+
+<link rel="stylesheet" href="css/sweetalert.css"/>
+<link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyBy8n1-BjOCaHHGjg6ZZgaQ_gp0EAFK_Tc",
+    authDomain: "spotifygroups-627c7.firebaseapp.com",
+    databaseURL: "https://spotifygroups-627c7.firebaseio.com",
+    projectId: "spotifygroups-627c7",
+    storageBucket: "spotifygroups-627c7.appspot.com",
+    messagingSenderId: "557372370976",
+    appId: "1:557372370976:web:16812293a1b236844d0c45",
+    measurementId: "G-X8GFHZPDQW"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+</script>
+<style>
+ #login{
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+ }
+body{
+  background: linear-gradient(0deg, rgba(50,200,183,1) 34%, rgba(85,255,190,1) 79%);
+  color:white;
+
+}
+
+</style>
+<body id="body" style="visibility: hidden">
+  <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="/home">SpotifyGroups</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item" id="lyrLink">
+            
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/stats" id="name"></a>
+          </li>
+          <li class="nav-item">
+            <a  class="btn btn-primary" id="logout" onclick="logout()">Logout</a>
+          </li>
+            
+        </ul>
+      </div>
+    </div>
+  </nav>
+ <div class="container-fluid">
+
+      <div id="login" class="text-center"style="visibility:hidden;">
+          <h1>Link your Spotify account to get started</h1>
+          <a href="/login"  class="btn btn-primary">Log in with Spotify</a>
+        
+      </div>
+      <div id="afterlogin" class="text-center" style="visibility: hidden; padding-top:100px">
+            <h1 id="greeting" style="font-size:3rem;font-family:Typold">Welcome </h1>
+
+          <!-- <a  class="btn btn-primary" id="getSong" onclick="getAccess()">Get top songs</a>
+          <a  class="btn btn-primary" id="getRecs" onclick="recWrapper()">Get Recommended Songs</a> -->
+          <!-- <a  class="btn btn-primary" id="groupBtn" onclick="createGroup()">Create Group</a> -->
+
+          
+          <br>
+          
+
+          <div class="row">
+           
+            <div class="col-lg-6">
+
+
+              <div class="limiter">
+                <div class="container-table100">
+                  <div class="wrap-table100">
+                    <div class="table100">
+                      <table class="table-mod">
+                        <thead>
+                          <tr class="table100-head">
+                            <th class="column1" style="padding: 15px 0" >
+                              
+                              <p>Group Name</p>
+                              <a  class="btn btn-primary" id="groupBtn" onclick="createGroup()">Create Group</a>
+                              <a  class="btn btn-primary" id="groupBtn" onclick="deleteGroup()">Delete Group</a>
+                            </th>
+                            
+                            
+                          </tr>
+                        </thead>
+                        <tbody id="groups" class="tbody-mod">
+                            
+                          
+                                      
+                            
+                            
+                            
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+
+
+              <div class="limiter">
+                <div class="container-table100">
+                  <div class="wrap-table100">
+                    <div class="table100">
+                      <table style="width:100%" class="table-mod">
+                        <thead>
+                          <tr class="table100-head">
+                            <th class="column1" style="padding: 15px 0">Invites</th>
+                            
+                            
+                          </tr>
+                        </thead>
+                        <tbody id="invites" class="tbody-mod">
+                            
+                          
+                                      
+                            
+                            
+                            
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+           
+            <table class="table table-striped" style="visibility:hidden;" id="recTable">
+              <thead class="thead-dark">
+                <tr class="thead-dark">
+                  <th colspan="3" style="text-align:center">Recommended Playlist<br><p style="font-size:15px;" id="lastUpd">Last Updated: </p><a class="btn btn-primary" id="groupBtn" onclick="createRecPlaylist()">Add/Update Playlist</a></th>
+                  
+                </tr>
+              </thead>
+              <tbody id="recs"></tbody>
+            </table>
+           
+          
+          
+            <div id="loading">
+              <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+            </div>
+
+          
+          <div id="invites"></div>
+	   </div>
+</div>
+
+ 
+
+
+
+
+<script src="/js/jquery.js"></script>
+<script src="/js/bootstrap.js"></script>
+<script src="/js/home.js"></script>
+<script src="https://sdk.scdn.co/spotify-player.js"></script>
+<script src="/js/cleanPlayer.js"></script>
+
+   <script src="/js/sweetalert.js"></script>
+</body>
+ 

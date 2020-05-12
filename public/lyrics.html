@@ -1,0 +1,165 @@
+
+
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <link href="css/index.css" rel="stylesheet">
+    <link href="css/table.css" rel="stylesheet">
+    <link href="css/nouislider.css" rel="stylesheet">
+     <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+  <script src="https://www.gstatic.com/firebasejs/7.9.1/firebase-app.js"></script>
+
+
+<script src="https://www.gstatic.com/firebasejs/7.9.1/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.9.1/firebase.js"></script>
+<script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+<link rel="stylesheet" href="css/sweetalert.css"/>
+<link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyBy8n1-BjOCaHHGjg6ZZgaQ_gp0EAFK_Tc",
+    authDomain: "spotifygroups-627c7.firebaseapp.com",
+    databaseURL: "https://spotifygroups-627c7.firebaseio.com",
+    projectId: "spotifygroups-627c7",
+    storageBucket: "spotifygroups-627c7.appspot.com",
+    messagingSenderId: "557372370976",
+    appId: "1:557372370976:web:16812293a1b236844d0c45",
+    measurementId: "G-X8GFHZPDQW"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+</script>
+<style>
+ #login{
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+ }
+body{
+  background: linear-gradient(0deg, rgba(50,200,183,1) 34%, rgba(85,255,190,1) 79%);
+  color:white;
+}
+
+</style>
+<body id="body" style="visibility: hidden">
+  <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="/home">SpotifyGroups</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item" id="lyrLink">
+            <a class='nav-link' href='/lyrics'>Lyric Mode</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/stats" id="name"></a>
+          </li>
+          <li class="nav-item">
+            <a  class="btn btn-primary" id="logout" onclick="logout()">Logout</a>
+          </li>
+          
+            
+        </ul>
+      </div>
+    </div>
+  </nav>
+ <div class="container-fluid">
+ 	
+      	<div class="d-flex justify-content-center"id="search">
+	        <div class="searchbar" >
+	          <input class="search_input" type="text" name="" placeholder="Search for a song...">
+	          <a href="#" class="search_icon"><i class="fas fa-search"></i></a>
+	        </div>
+	     </div>
+
+      <div id="results">
+        <div id="loadingSearch" style="display:none" class="loading">
+          <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+        </div>
+        <h1 class="text-center" id="cantFindSong" style="text-align:center !important;display:none;color:black">Oops... We can't find your song on Genius. Please try a different song!</h1>
+
+          <table class="table table-striped table-hover" style="visibility:hidden;" id="recTable">
+            <h1 class="text-center" id="searchTitle" style="text-align:center !important;display:none;color:black">Search Results</h1>
+            <tbody id="recs"></tbody>
+          </table>
+         </div>
+	       <p id="songTitle" class="text-center" style="color:black;font-size:30px"></p>
+	        <p id="songAuthor" class="text-center" style="color:black;font-size:15px"></p>
+	       <p id="lyrics" class="text-center" style="color:black;font-size:18px"></p>
+	       
+    </div>
+
+
+
+
+
+  <div class="toast" style="position: fixed; bottom: 0; right: 50;width:800px" data-autohide="false">
+    <div class="toast-header" style="background-color:rgba(255,255,255,0);border:none">
+	    <img id="toastImg" src="" class="rounded mr-2" style="width:50px;height:50px"alt="...">
+	    <strong class="mr-auto" style="padding-top:10px;font-size:20px" id="songInf"></strong>
+    	<button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    	
+  </div>
+  <div class="toast-body" style="background-color:rgba(255,255,255,0)">
+   <div id="slider-range"></div>
+   <div style="overflow: hidden;">
+    <p style="margin-bottom:0px; float: left;text-align:left;
+    width:33.33333%; color:black" id="initTime">0:00</p>
+     <p style="margin-bottom:0px;font-size:30px;color:black;float: left;
+     text-align:center;width:33.33333%;" data-isPause="false" id="pause"><i class="fas fa-pause"></i></p>
+    <p style="margin-bottom:0px; float: left;text-align:right;width:33.33333%; color:black" id="totTime"></p>
+ </div>
+
+  </div>
+   
+  </div>
+
+
+
+
+
+
+
+  <script src="/js/jquery.js"></script>
+  <script src="/js/bootstrap.js"></script>
+  <script src="js/lyrics.js"></script>
+<script src="https://sdk.scdn.co/spotify-player.js"></script>
+<script src="/js/player.js"></script>
+<script src="/js/nouislider.js"></script>
+   <script src="/js/sweetalert.js"></script>
+</body>
+
+ <script>
+ 	
+ 
+var rangeSlider = document.getElementById('slider-range');
+
+noUiSlider.create(rangeSlider, {
+    start: [0],
+    connect: [false, true],
+    behaviour: 'tap',
+    tooltips: false,
+    range: {
+        'min': [0],
+        'max': [10]
+    }
+});
+
+
+ 	
+
+
+ </script>
