@@ -18,7 +18,7 @@ const cheerio = require('cheerio');
 
 var client_id = '3477422c8e7946beb3703525f0b4a3b9'; // Your client id
 var client_secret = '12ef25184f034646a6ac3e271cc7d5e7'; // Your secret
-var redirect_uri = ' https://spotifygroups-627c7.web.app/home/callback'; // Your redirect uri
+var redirect_uri = ' https://spotify-groups.herokuapp.com/home/callback'; // Your redirect uri
 
 /**
  * Generates a random string containing numbers and letters
