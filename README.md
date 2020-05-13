@@ -7,7 +7,9 @@ I started this project around late February. The backstory to this project was t
 
 <img width="960" alt="Capture" src="https://user-images.githubusercontent.com/32548076/81866832-c5a9ba80-953d-11ea-9161-3f7973507fc3.png"> What the user's home screen looks like. Here they can see the groups they are apart of, any group invitations they have received, and their own personal playlist generated based off their music preferences.
 
+
 <img width="960" alt="Capture" src="https://user-images.githubusercontent.com/32548076/81866988-043f7500-953e-11ea-8b69-13c566d3ed4e.png"> This is what the Lyric Mode looks like. You must have a Spotify Premium Account to use this feature as it plays the song in the browser. You can search for any song and if that song has lyrics on Genius, it'll display them. You can use the mini music player to traverse the song.
+
 
 <img width="960" alt="Capture" src="https://user-images.githubusercontent.com/32548076/81867088-2a651500-953e-11ea-895f-175c84be34e0.png"> By clicking on your name in the navbar, you can view your Spotify account statistics. You can view your top artists or songs in the past 4 weeks, 6 months, or all time.
 
