@@ -36,7 +36,7 @@ firebase.auth().onAuthStateChanged(function(user) {
           document.getElementById("pause").innerHTML = "<i class='fas fa-play'></i>"
           if(String($("#pause").attr("data-isPause")) == "false"){
             window.clearInterval(window.myVar);
-            console.log("cleared timer which means it came from False"); 
+            //console.log("cleared timer which means it came from False"); 
              document.getElementById("pause").setAttribute("data-isPause","true")
           }
          
@@ -45,18 +45,16 @@ firebase.auth().onAuthStateChanged(function(user) {
           document.getElementById("pause").innerHTML = "<i class='fas fa-pause'></i>"
           if(String($("#pause").attr("data-isPause")) == "true"){
             window.myVar = setInterval(incTime, 1000);
-            console.log("started timer which means came from True"); 
+            //console.log("started timer which means came from True"); 
              document.getElementById("pause").setAttribute("data-isPause","false")
           }
          
           
            
         }
-        console.log(String($("#pause").attr("data-isPause"))); 
       });
       sdk.addListener('ready', ({ device_id }) => {
         deviceID = device_id;
-        console.log('Ready with Device ID', device_id);
       });
       
       sdk.connect();
@@ -85,5 +83,4 @@ async function getAToken(uid){
 function incTime(){
   rangeSlider.noUiSlider.set(time);
    time += 1;
-  // console.log(time)
 }

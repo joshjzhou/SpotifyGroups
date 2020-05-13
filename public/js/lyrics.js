@@ -58,11 +58,9 @@ async function getSearch(query){
 	            'refresh_token': reftoken
 	          }
 	        })
-	console.log(data);
 	var accesstoken = data.access_token
 	
 	newQuery = encodeURIComponent(query);
-	console.log(newQuery);
 	var songs = await $.ajax({
 	              url: 'https://api.spotify.com/v1/search?q='+newQuery+'&type=track&limit=10',
 	              type: 'GET',
@@ -113,7 +111,6 @@ async function makeClickableSongCard(){
         (async () => {
 			
 			var uri = String($(this).attr("href"))
-			console.log(uri)
 			uri = uri.split("//");
 			
 	        var songTitle = String($(this).attr("data-songTitle"));
@@ -121,7 +118,6 @@ async function makeClickableSongCard(){
 	        var sUri = String($(this).attr("data-uri"));
 	        var durMs = String($(this).attr("data-duration"));
 	        var profUri = String($(this).attr("src"))
-	        console.log(profUri, durMs)
 			var ind = songTitle.indexOf("(");
 			var qPart1 = songTitle;
 	        if( ind > 0){
@@ -134,7 +130,6 @@ async function makeClickableSongCard(){
 	        	qPart2 = qPart2.slice(0, ind2)
 	        }
 	        uri = qPart1+" "+qPart2;
-	        console.log(uri)
 			newQuery = encodeURIComponent(uri);
 			
 	        var data =  await $.ajax({
@@ -149,11 +144,9 @@ async function makeClickableSongCard(){
 	       		if(data.response.hits[k].result.full_title.includes(editedTitle)){
 	       			bestInd = k;
 	       			k = data.response.hits.length;
-	       			console.log("heheh")
 	       		}
 	       		
 	       	}
-	       	//console.log(data.response.hits[bestInd].result.api_path, data.response.hits[bestInd].result.full_title);
 			if(data.response.hits.length == 0){
 				document.getElementById("cantFindSong").style.display = "block"
 				document.getElementById("searchTitle").style.display = "None"
@@ -192,7 +185,6 @@ async function makeClickableSongCard(){
               data: JSON.stringify({"uris":[sUri]}),
               headers: {"Authorization": "Bearer "+access_token}
             });
-			console.log(data, "hehhe");
 			document.getElementById("loadingSearch").style.display = "none"
         	$('.toast').toast("show");
 			initSlider(Math.floor(durMs/1000), access_token)
@@ -230,24 +222,20 @@ noUiSlider.create(rangeSlider, {
 
 time = 1;
 
-// function incTime(){
-//   rangeSlider.noUiSlider.set(time);
-//    time += 1;
-//   // console.log(time)
-// }
+
 
 
 var rangeSliderValueElement = document.getElementById('initTime');
 rangeSlider.noUiSlider.on('start', function (values, handle) {
     window.clearInterval(window.myVar);
-    console.log("start: cleared timer")
+    //console.log("start: cleared timer")
    
    
 });
 rangeSlider.noUiSlider.on('end', function (values, handle) {
 	
 	if(String($("#pause").attr("data-isPause")) == "false"){
-		console.log("end: started timer")
+		//console.log("end: started timer")
 	    window.myVar = setInterval(incTime, 1000);
 	}
      var data = $.ajax({
@@ -255,11 +243,7 @@ rangeSlider.noUiSlider.on('end', function (values, handle) {
       type: "PUT",
       headers: {"Authorization": "Bearer "+access_token}
     });
-     // if(String($("#pause").attr("data-isPause")) == "true"){
-
-     // 	window.myVar = setInterval(incTime, 1000);
-     // 	document.getElementById("pause").setAttribute("data-isPause","false")
-     // }
+    
    
    
 });

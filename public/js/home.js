@@ -59,7 +59,6 @@
 								lastUpdated:""
 							})
 							.then(function() {
-							    console.log("Document successfully written!");
 							    
 							    document.getElementById('login').style.visibility = "visible"; //show and prompt for spotify connection
 							})
@@ -74,7 +73,6 @@
 					docRef.get().then(function(doc) {
 						//if user is in db but doesnt have refreshtoken in db
 					    if (doc.exists && doc.data().accessrefresh=="") {
-					    	console.log("hi");
 					    	
 					    	//if accesstoken exists, update logs (it will go here after connecting spotify, oauth returns it in url)
 					        if(access_token != null){
@@ -83,7 +81,6 @@
 							    accessrefresh: refresh_token
 							})
 								.then(function() {
-								    console.log("Document successfully written!");
 								    
 								     window.location.replace("/home");
 								})
@@ -245,7 +242,6 @@ async function getAccess(){
 		var user = firebase.auth().currentUser;
     	var db = firebase.firestore();
     	var reftoken = await getRefresh();
-    	console.log("oh my", reftoken);
             $.ajax({
               url: '/refresh_token',
               data: {
@@ -253,7 +249,6 @@ async function getAccess(){
               }
             }).done(function(data) {
               var accesstoken = data.access_token;
-              console.log('i got here apparently')
               getSongs(accesstoken);
             });
           };
@@ -293,14 +288,12 @@ async function getAccess(){
 				    if(songName.length > 30){
 				      	songName = songName.slice(0, 25) + "..."
 				      }
-				    console.log(artistString);
 				    document.getElementById("songs").innerHTML += 
 				    "<tr class='songClick' href="+obj.uri+"><td style='text-align:center;padding: 25px 0'>\
 				    <img class='songImg' \
 				    src='"+albumImgUrl+"'>"+songName+"\
                      <br> <p style='font-size:15px;'>by "+artistString+"</p></td></tr>"
 				}
-              console.log(data);
               makeClickableSongRow();
             });
           
@@ -379,7 +372,6 @@ async function updateGroups(){
 
 
 function invDec(uID, gID){
-	console.log(uID, gID);
 	var user = firebase.auth().currentUser;
     	var db = firebase.firestore();
 	(async () => {
@@ -473,7 +465,6 @@ async function updateInvites(){
 			//check if user is alrdy in group
 			if(!userDoc.data().groups.includes(gID) && gDoc.exists){
 				var ins = "invDec("+"'"+uID +"'"+ "," +"'"+ gID + "'"+")";
-				console.log(ins)
 				// document.getElementById("invites").innerHTML += "<a class='btn btn-success btn-default' onclick=\" "+ins+ " \" >"+invDoc.data().displayName+" invited you to join "+gDoc.data().name+"</a><br>"
 				document.getElementById("invites").innerHTML += "<tr class='inviteClick' onclick=\" "+ins+ " \"><td>"+invDoc.data().displayName+" invited you to join "+gDoc.data().name+"</td></tr>"
 
@@ -636,12 +627,10 @@ async function recWrapper(){
             lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
     });
     
-    console.log(songArray);
   }else{
     var lastUpdate = uDocs.data() && uDocs.data().lastUpdated && uDocs.data().lastUpdated.toDate();
     var curDate = new Date();
     if(dateDiffInDays(lastUpdate, curDate) >= 7){
-      console.log("kill myself xdd");
       var allSongs = await compileAllSongs();
       var songArray = allSongs.split(",");
       songArray = shuffle(songArray);

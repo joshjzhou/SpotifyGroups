@@ -137,7 +137,7 @@ async function updateUsers(gID){
                   var userID = docs.data().users[i];
                   var uRef = db.collection('users').doc(userID);
                   var name = await uRef.get();
-                  console.log(name.data().displayName);
+                  
                   document.getElementById("users").innerHTML += "<tr id="+userID+"><td class='column1'>"+name.data().displayName+"</td></tr>"
                 }
 }
@@ -232,13 +232,13 @@ async function getAccess(uid){
               }
             })
       var accesstoken = data.access_token;
-      console.log('i got here apparently');
+      
       document.getElementById("recTable").style.visibility = "visible";
       //document.getElementById("nameLabel").innerHTML = name + "'s Recent Top Songs";
       document.getElementById("recs").innerHTML = ""
       document.getElementById("recHeader").innerHTML = "<th colspan='4' style='text-align:center'>"+name+"'s Recent Top Songs<br></th>"
 
-      console.log(accesstoken);
+      
       return accesstoken;
             
           };
@@ -246,7 +246,6 @@ async function getAccess(uid){
 
 //add only get 5 songs instead of 10
  function getSongs(access_token){
-    console.log(access_token);
       $.ajax({
               url: '/top_tracks',
               data: {
@@ -282,7 +281,6 @@ async function getAccess(uid){
                   document.getElementById("recs").innerHTML += "<tr><td style='padding-top:25px;padding-left:50px'>"+(i+1)+"</td><td><a href="+obj.external_urls.spotify+" target='_blank'><img  src="+albumImgUrl+" class='rounded mr-2' style='width:50px;height:50px;'></a></td><td style='text-align:left;padding-top:25px;'>"+songName+"</td><td style='padding-top:25px'>"+artistString+"</td></tr>"
 
         }
-              console.log(data);
               //makeClickableSongRow();
             });
           
@@ -425,12 +423,10 @@ async function recWrapper(){
             lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
     });
     
-    console.log(songArray);
   }else{
     var lastUpdate = gDocs.data() && gDocs.data().lastUpdated && gDocs.data().lastUpdated.toDate();
     var curDate = new Date();
     if(dateDiffInDays(lastUpdate, curDate) >= 7 || gDocs.data().userNum != gDocs.data().users.length){
-      console.log("kill myself xdd");
       var allSongs = await compileAllSongs();
       var songArray = allSongs.split(",");
       songArray = shuffle(songArray);

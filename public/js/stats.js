@@ -76,7 +76,6 @@ async function loadSongs(range){
 
 
 async function loadArtists(range){
-  console.log(range)
   var user = firebase.auth().currentUser;
 var db = firebase.firestore();
 var userRef = db.collection("users").doc(user.uid);

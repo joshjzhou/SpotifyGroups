@@ -4,7 +4,16 @@
     src: url("typold.otf") format("opentype");
 }
 
-
+@media only screen and (max-width:1065px){
+  .masthead-heading{
+      font-size:50px !important;
+  }   
+  .masthead-subheading{
+      font-size:30px !important;
+  }
+ 
+ 
+ }
 body {
   font-family: 'Typold';
   position:relative;
