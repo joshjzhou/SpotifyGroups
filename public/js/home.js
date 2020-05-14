@@ -645,6 +645,8 @@ async function recWrapper(){
 
   var userRef = db.collection("users").doc(user.uid);
   var uDocs = await userRef.get();
+  var lastUpd = uDocs.data() && uDocs.data().lastUpdated && uDocs.data().lastUpdated.toDate();
+
   if(uDocs.data().recPlaylist.length != 0){
     //get tracks and display in table
     var tracks = uDocs.data().recPlaylist;
@@ -668,7 +670,6 @@ async function recWrapper(){
               headers: {"Authorization": "Bearer "+accesstoken}
 
     });
-    var lastUpd = uDocs.data() && uDocs.data().lastUpdated && uDocs.data().lastUpdated.toDate();
     
     document.getElementById("recs").innerHTML = "";
     document.getElementById("recTable").style.visibility = "visible";
